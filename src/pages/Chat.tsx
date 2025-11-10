@@ -46,7 +46,7 @@ const Chat = () => {
 
   const fetchChatRooms = async () => {
     try {
-      const response = await fetch('https://message-app-kanban.vercel.app/api/chat_rooms/', {
+      const response = await fetch('http://3.27.235.209:8000/api/chat_rooms/', {
         headers: {
           'Authorization': `token ${user?.token}`,
         },
@@ -65,7 +65,7 @@ const Chat = () => {
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch('https://message-app-kanban.vercel.app/api/send_message/');
+      const response = await fetch('http://3.27.235.209:8000/api/send_message/');
       if (response.ok) {
         const data = await response.json();
         const roomMessages = data.filter((msg: Message) => msg.chat_room === selectedRoom?.id);
@@ -81,7 +81,7 @@ const Chat = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch('https://message-app-kanban.vercel.app/api/send_message/', {
+      const response = await fetch('http://3.27.235.209:8000/api/send_message/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
