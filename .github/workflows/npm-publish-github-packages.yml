@@ -40,7 +40,7 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy on EC2
+      - name: Deploy on Azure
         env:
           APP_DIR: ${{ secrets.APP_DIR }}                  # e.g. /home/ubuntu/react-app
           REPO:    ${{ github.repository }}                # owner/repo
@@ -63,12 +63,12 @@ jobs:
             # Ensure parent exists, then clone if missing
             mkdir -p "$(dirname "$APP_DIR")"
             if [ ! -d "$APP_DIR/.git" ]; then
-              git clone "https://github.com/$REPO.git" "$APP_DIR"
+              sudo git clone "https://github.com/$REPO.git" "$APP_DIR"
             fi
       
             cd "$APP_DIR"
-            git fetch origin main
-            git reset --hard origin/main
+            sudo git fetch origin main
+            sudo git reset --hard origin/main
       
             # Build & run (compose and .env must be in this directory)
             sudo docker compose build
